@@ -1,3 +1,3 @@
 # SnakeGameProject
+I will store my code here!!
 
-My name is kenneth and this is where i will store my project!
