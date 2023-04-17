@@ -1,1 +1,25 @@
-#testing testing 
+# snake game by Kenneth Grassel
+
+import pygame, sys, time, random
+
+# Difficulty
+# Rookie = 10
+# Average = 25
+# Good = 40
+# Great = 60
+# Spectacular = 120
+Difficulty = 10
+
+# application size
+frame_size_x = 800
+frame_size_y = 500
+
+# error check
+check_errors = pygame.init()
+if check_errors[1]>0:
+    print(f'[!] Had {check_errors[1]} errors when launching game, closing application...')
+    sys.exit(-1)
+else:
+    print('[+] Launching Game...')
+
+
