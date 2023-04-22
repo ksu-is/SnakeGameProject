@@ -1,10 +1,10 @@
-[] joined organization
-[] create README.md
-[] create ROADMAP.md
-[] pull base code
+[x] joined organization
+[x] create README.md
+[x] create ROADMAP.md
+[x] pull base code
 [] add title page
-[] add replay function
-[] change appearence of game
+[x] add replay ability
+[x] change appearence of game
 []
 []
 []
