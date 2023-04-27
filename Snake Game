@@ -1,6 +1,7 @@
 # Hungry Snake by Kenneth Grassel
 
 import pygame, sys, time, random
+pygame.init()
 
 # Difficulty
 # Rookie = 15
@@ -13,8 +14,11 @@ Difficulty = 30
 # application size
 frame_size_x = 1000
 frame_size_y = 800
-
+screen = pygame.display.set_mode((frame_size_x, frame_size_y))
+game_state = "start_menu"
 gameover = False
+startmenu = True
+
 
 # error check
 check_errors = pygame.init()
@@ -44,11 +48,36 @@ snake_body = [[100, 50], [100-10, 50], [100-(2*10), 50]]
 
 food_pos = [random.randrange(1, (frame_size_x//10)) * 10, random.randrange(1, (frame_size_y//10)) * 10]
 food_spawn = True
+         
 
 direction = 'RIGHT'
 change_to = direction
 
 score = 0
+# Score
+def show_score(choice, color, font, size):
+    score_font = pygame.font.SysFont(font, size)
+    score_surface = score_font.render('SCORE:' + str(score), True, white)
+    score_rect = score_surface.get_rect()
+    if choice == 1:
+        score_rect.midtop = (frame_size_x/10, 15)
+    else:
+        score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
+    game_window.blit(score_surface, score_rect)
+    # pygame.display.flip()
+
+def start_menu():
+    global startmenu
+    screen.fill((0, 255, 0))
+    font = pygame.font.SysFont('times new roman', 80)
+    title = font.render('Hungry Snake', True, (255, 255, 255))
+    start_button = font.render('game is loading....', True, (255, 255, 255))
+    screen.blit(title, (frame_size_x/2 - title.get_width()/2, frame_size_y/2 - title.get_height()/2))
+    screen.blit(start_button, (frame_size_x/2 - start_button.get_width()/2, frame_size_y/2 + start_button.get_height()/2))
+    pygame.display.update()
+    time.sleep(1)
+    startmenu = True
+    
 
 # Game Over
 def game_over():
@@ -65,41 +94,32 @@ def game_over():
     game_window.blit(game_over_surface, game_over_rect)
     game_window.blit(restart_game_surface, restart_game_rect)
     show_score(0, white, 'times', 20)
-    pygame.display.flip()
+    pygame.display.update()
     time.sleep(1)
     gameover = True 
-    
 
 
-# Score
-def show_score(choice, color, font, size):
-    score_font = pygame.font.SysFont(font, size)
-    score_surface = score_font.render('SCORE:' + str(score), True, white)
-    score_rect = score_surface.get_rect()
-    if choice == 1:
-        score_rect.midtop = (frame_size_x/10, 15)
-    else:
-        score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
-    game_window.blit(score_surface, score_rect)
-    # pygame.display.flip()
+   
 
-# Main logic
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        # Whenever a key is pressed down
         elif event.type == pygame.KEYDOWN:
             # W -> Up; S -> Down; A -> Left; D -> Right
             if event.key == pygame.K_UP or event.key == ord('w'):
                 change_to = 'UP'
+                game_state = False
             if event.key == pygame.K_DOWN or event.key == ord('s'):
                 change_to = 'DOWN'
+                game_state = False
             if event.key == pygame.K_LEFT or event.key == ord('a'):
                 change_to = 'LEFT'
+                game_state = False
             if event.key == pygame.K_RIGHT or event.key == ord('d'):
                 change_to = 'RIGHT'
+                game_state = False
             # Esc -> Create event to quit the game
             if event.key == pygame.K_ESCAPE:
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
@@ -111,7 +131,14 @@ while True:
                  direction = 'RIGHT'
                  change_to = direction
                  score = 0
-                 gameover = False
+                 gameover = False  
+        if game_state == "start_menu":
+            start_menu()
+            
+        
+                
+
+
 
     # Making sure the snake cannot move in the opposite direction instantaneously
     if change_to == 'UP' and direction != 'DOWN':
@@ -170,5 +197,4 @@ while True:
     pygame.display.update()
     # Refresh rate
     fps_controller.tick(Difficulty)
-
-  
+    
