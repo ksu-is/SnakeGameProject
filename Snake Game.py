@@ -9,7 +9,7 @@ pygame.init()
 # Good = 30
 # Great = 60
 # Spectacular = 120
-Difficulty = 30
+Difficulty = 15
 
 # application size
 frame_size_x = 1000
@@ -18,7 +18,6 @@ screen = pygame.display.set_mode((frame_size_x, frame_size_y))
 game_state = "start_menu"
 gameover = False
 startmenu = True
-
 
 # error check
 check_errors = pygame.init()
@@ -49,7 +48,6 @@ snake_body = [[100, 50], [100-10, 50], [100-(2*10), 50]]
 food_pos = [random.randrange(1, (frame_size_x//10)) * 10, random.randrange(1, (frame_size_y//10)) * 10]
 food_spawn = True
          
-
 direction = 'RIGHT'
 change_to = direction
 
@@ -78,7 +76,6 @@ def start_menu():
     time.sleep(1)
     startmenu = True
     
-
 # Game Over
 def game_over():
     global gameover
@@ -97,9 +94,6 @@ def game_over():
     pygame.display.update()
     time.sleep(1)
     gameover = True 
-
-
-   
 
 while True:
     for event in pygame.event.get():
@@ -135,12 +129,7 @@ while True:
         if game_state == "start_menu":
             start_menu()
             
-        
-                
-
-
-
-    # Making sure the snake cannot move in the opposite direction instantaneously
+# Making sure the snake cannot move in the opposite direction instantaneously
     if change_to == 'UP' and direction != 'DOWN':
         direction = 'UP'
     if change_to == 'DOWN' and direction != 'UP':
