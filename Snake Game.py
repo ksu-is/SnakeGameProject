@@ -13,7 +13,7 @@ Difficulty = 15
 
 # application size
 frame_size_x = 1000
-frame_size_y = 800
+frame_size_y = 750
 screen = pygame.display.set_mode((frame_size_x, frame_size_y))
 game_state = "start_menu"
 gameover = False
